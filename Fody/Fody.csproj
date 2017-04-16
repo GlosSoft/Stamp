@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StampSvn.Fody</RootNamespace>
-    <AssemblyName>StampSvn.Fody</AssemblyName>
+    <AssemblyName>StampSvn.GS.Fody</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -77,6 +77,7 @@
     <Compile Include="EnumerableEx.cs" />
     <Compile Include="FormatStringTokenResolver.cs" />
     <Compile Include="ISvnHelper.cs" />
+    <Compile Include="ModuleWeaver.GS.Hack.cs" />
     <Compile Include="ResourceExtractor.cs" />
     <Compile Include="SvnHelper.cs" />
     <Compile Include="ModuleWeaver.cs" />

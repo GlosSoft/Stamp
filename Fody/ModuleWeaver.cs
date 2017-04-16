@@ -6,7 +6,7 @@ using Mono.Cecil;
 using System.Collections.ObjectModel;
 using System.Reflection;
 
-public class ModuleWeaver
+public partial class ModuleWeaver
 {
     public Action<string> LogInfo { get; set; }
     public Action<string> LogWarning { get; set; }
@@ -38,8 +38,8 @@ public class ModuleWeaver
 
     Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
     {
-        if (args.Name == "SharpSvn, Version=1.8003.2513.15185, Culture=neutral, PublicKeyToken=d729672594885a28")
-        {
+        //if (args.Name == "SharpSvn, Version=1.8003.2513.15185, Culture=neutral, PublicKeyToken=d729672594885a28")
+        //{
             LogInfo("Loading AssemblyResolve Name: " + args.Name);
 
             var sharpSvnPath = Path.Combine(AddinDirectoryPath, "SharpSvn18.dll");
@@ -48,20 +48,20 @@ public class ModuleWeaver
             LogInfo("Loaded AssemblyResolve FullName: " + asm.FullName);
 
             return asm;
-        }
-        else if (args.Name == "SharpSvn, Version=1.7013.2566.15257, Culture=neutral, PublicKeyToken=d729672594885a28")
-        {
-            LogInfo("Loading AssemblyResolve Name: " + args.Name);
+        //}
+        //else if (args.Name == "SharpSvn, Version=1.7013.2566.15257, Culture=neutral, PublicKeyToken=d729672594885a28")
+        //{
+        //    LogInfo("Loading AssemblyResolve Name: " + args.Name);
 
-            var sharpSvnPath = Path.Combine(AddinDirectoryPath, "SharpSvn.dll");
-            var asm = Assembly.LoadFrom(sharpSvnPath);
+        //    var sharpSvnPath = Path.Combine(AddinDirectoryPath, "SharpSvn.dll");
+        //    var asm = Assembly.LoadFrom(sharpSvnPath);
 
-            LogInfo("Loaded AssemblyResolve FullName: " + asm.FullName);
+        //    LogInfo("Loaded AssemblyResolve FullName: " + asm.FullName);
 
-            return asm;
-        }
+        //    return asm;
+        //}
 
-        return null;
+        //return null;
     }
 
     public void Execute()
@@ -158,6 +158,14 @@ public class ModuleWeaver
         }
         LogInfo("AssemblyFileVersionAttribute processed.");
 
+        if (true)
+        {
+            customAttribute = new CustomAttribute(ModuleDefinition.Import(GetInformationalVersionAttribute().Methods.First(x => x.IsConstructor)));
+            assemblyInfoVersion = AttributeHack(assemblyVersionReplaced, ver);
+            customAttribute.ConstructorArguments.Add(new CustomAttributeArgument(ModuleDefinition.TypeSystem.String, assemblyInfoVersion));
+            customAttributes.Add(customAttribute);
+        } else{
+
         /* AssemblyInformationalVersionAttribute */
         customAttribute = customAttributes.FirstOrDefault(x => x.AttributeType.Name == "AssemblyInformationalVersionAttribute");
         if (customAttribute != null)
@@ -191,21 +199,8 @@ public class ModuleWeaver
             customAttribute.ConstructorArguments.Add(new CustomAttributeArgument(ModuleDefinition.TypeSystem.String, assemblyInfoVersion));
             customAttributes.Add(customAttribute);
         }
-
+}
         LogInfo(string.Format("AssemblyInformationalVersionAttribute processed: {0}", assemblyInfoVersion));
-    }
-
-    private string ReplaceVersion3rd(string versionString, int rev)
-    {
-        Version fake;
-        if (!Version.TryParse(versionString, out fake))
-        {
-            throw new WeavingException("The version string must be prefixed with a valid Version. The following string does not: " + versionString);
-        }
-
-        var ret = new Version(fake.Major, fake.Minor, rev, fake.Revision);
-
-        return ret.ToString();
     }
 
     void VerifyStartsWithVersion(string versionString)

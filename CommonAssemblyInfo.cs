@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-[assembly: AssemblyTitle("StampSvn")]
-[assembly: AssemblyProduct("StampSvn")]
-[assembly: AssemblyVersion("0.7.8.0")]
-[assembly: AssemblyFileVersion("0.7.8.0")]
+[assembly: AssemblyTitle("StampSvn.GS")]
+[assembly: AssemblyProduct("StampSvn.GS")]
+[assembly: AssemblyVersion("2.0.2.0")]
+[assembly: AssemblyFileVersion("2.0.2.0")]
