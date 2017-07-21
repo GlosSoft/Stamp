@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>StampSvn.GS.Fody</id>
-    <version>2.0.2.0</version>
+    <version>2.0.4.0</version>
     <title>StampSvn.GS.Fody</title>
     <authors>Simon Cropp, Kerem Kat, Stephen Kennedy</authors>
     <owners>Simon Cropp</owners>
@@ -13,8 +13,8 @@
     <description>Stamps an assembly with svn information.</description>
     <language>en-US</language>
     <tags>Svn, Versioning, ILWeaving, Fody, Stamp, StampSvn, Cecil</tags>
-    <dependencies>
-      <dependency id="Fody" version="[1.29.4.0]" />
+    <dependencies>      
+      <dependency id="Fody" version="[2.1.2, 3.0.0)" />
     </dependencies>
   </metadata>
 </package>

@@ -3,9 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Mono.Cecil;
-using System.Collections.ObjectModel;
 using System.Reflection;
-using System.Xml.Linq;
 
 public partial class ModuleWeaver
 {
@@ -242,28 +240,6 @@ public partial class ModuleWeaver
         return GetAttribute("AssemblyVersionAttribute");
     }
 
-    public XElement Config { get; set; }
-
-    int? GetVerPatchWaitTimeout()
-    {
-        if (Config == null)
-        {
-            return null;
-        }
-        var xAttributes = Config.Attributes();
-        var timeoutSetting = xAttributes.FirstOrDefault(attr => attr.Name.LocalName == "VerPatchWaitTimeoutInMilliseconds");
-        if (timeoutSetting == null)
-        {
-            return null;
-        }
-        int timeoutInMilliseconds;
-        if (int.TryParse(timeoutSetting.Value, out timeoutInMilliseconds) && timeoutInMilliseconds > 0)
-        {
-            return timeoutInMilliseconds;
-        }
-        return null;
-    }
-
     public void AfterWeaving()
     {
         if (!dotSvnDirExists)
@@ -289,7 +265,7 @@ public partial class ModuleWeaver
 
         using (var process = Process.Start(startInfo))
         {
-            var waitTimeoutInMilliseconds = GetVerPatchWaitTimeout().GetValueOrDefault(1000);
+            const int waitTimeoutInMilliseconds = 10000;
             LogInfo(string.Format("Waiting {0} ms while verpatch.exe is processing assembly", waitTimeoutInMilliseconds));
 
             if (!process.WaitForExit(waitTimeoutInMilliseconds))
