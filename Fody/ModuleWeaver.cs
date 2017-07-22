@@ -215,13 +215,13 @@ public partial class ModuleWeaver
 
     TypeDefinition GetAttribute(string typeName)
     {
-        var msCoreLib = ModuleDefinition.AssemblyResolver.Resolve("mscorlib");
+        var msCoreLib = ModuleDefinition.AssemblyResolver.Resolve(new AssemblyNameReference("mscorlib", null));
         var msCoreAttribute = msCoreLib.MainModule.Types.FirstOrDefault(x => x.Name == typeName);
         if (msCoreAttribute != null)
         {
             return msCoreAttribute;
         }
-        var systemReflection = ModuleDefinition.AssemblyResolver.Resolve("System.Reflection");
+        var systemReflection = ModuleDefinition.AssemblyResolver.Resolve(new AssemblyNameReference("System.Reflection", null));
         return systemReflection.MainModule.Types.First(x => x.Name == typeName);
     }
 
