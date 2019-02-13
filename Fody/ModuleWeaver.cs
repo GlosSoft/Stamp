@@ -37,8 +37,6 @@ public partial class ModuleWeaver
 
     Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
     {
-        //if (args.Name == "SharpSvn, Version=1.8003.2513.15185, Culture=neutral, PublicKeyToken=d729672594885a28")
-        //{
             LogInfo("Loading AssemblyResolve Name: " + args.Name);
 
             var sharpSvnPath = Path.Combine(AddinDirectoryPath, "SharpSvn18.dll");
@@ -47,20 +45,6 @@ public partial class ModuleWeaver
             LogInfo("Loaded AssemblyResolve FullName: " + asm.FullName);
 
             return asm;
-        //}
-        //else if (args.Name == "SharpSvn, Version=1.7013.2566.15257, Culture=neutral, PublicKeyToken=d729672594885a28")
-        //{
-        //    LogInfo("Loading AssemblyResolve Name: " + args.Name);
-
-        //    var sharpSvnPath = Path.Combine(AddinDirectoryPath, "SharpSvn.dll");
-        //    var asm = Assembly.LoadFrom(sharpSvnPath);
-
-        //    LogInfo("Loaded AssemblyResolve FullName: " + asm.FullName);
-
-        //    return asm;
-        //}
-
-        //return null;
     }
 
     public void Execute()
@@ -265,7 +249,7 @@ public partial class ModuleWeaver
 
         using (var process = Process.Start(startInfo))
         {
-            const int waitTimeoutInMilliseconds = 10000;
+            const int waitTimeoutInMilliseconds = 30000;
             LogInfo(string.Format("Waiting {0} ms while verpatch.exe is processing assembly", waitTimeoutInMilliseconds));
 
             if (!process.WaitForExit(waitTimeoutInMilliseconds))

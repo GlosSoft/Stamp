@@ -52,12 +52,6 @@
     <Reference Include="Mono.Cecil.Rocks, Version=0.10.0.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
       <HintPath>..\..\..\..\..\NugetPackages\FodyCecil.2.1.2\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
     </Reference>
-    <Reference Include="SharpSvn, Version=1.7013.2566.15257, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=x86">
-      <HintPath>..\Lib\SharpSvn.1.7-x86.1.7013.2566\lib\net20\SharpSvn.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Aliases>svn17</Aliases>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SharpSvn18, Version=1.8003.2513.15185, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=x86">
       <HintPath>..\Lib\SharpSvn.1.8-x86.1.8003.2513\lib\net20\SharpSvn18.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
